@@ -1,0 +1,38 @@
+.shop.background {
+    background-attachment: fixed;
+    background-image: url(/public/assets/shop-background.png);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+.product-item {
+    background-image: url(/public/assets/item-background.png);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 27vh;
+    height: 38vh;
+    padding: 8vh 4vh;
+}
+
+.product-item img {
+    height: 74%;
+    width: 100%;
+}
+
+.products-container{
+    width: 118vh;
+    height: 74vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 22vh;
+    right: 5vh;
+    overflow: scroll;
+}

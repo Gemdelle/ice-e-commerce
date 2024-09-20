@@ -1,0 +1,18 @@
+.background {
+    background-attachment: fixed;
+    background-image: url(/public/assets/background.png);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+.shop-btn {
+    height: 5vh;
+    width: 12vh;
+    position: absolute;
+    top: 13vh;
+    right: 79vh;
+    cursor: pointer;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Home from './screens/Home/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Products from './screens/Products/Products';
+import Shop from './screens/Shop/Shop';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home param1={1} />} />
-        <Route path="/products" element={<Products  />} />
+        <Route path="/shop" element={<Shop param1={2} />} />
       </Routes>
     </Router>
     </div>
