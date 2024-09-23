@@ -1,7 +1,8 @@
 import React, {FC, useEffect, useState} from 'react';
 import './Shop.css';
+import Sparkles from "../../components/Sparkles/Sparkles";
 
-interface ProductsProps {param1:number}
+interface ProductsProps {param1:number, saveProducts: any}
 
 interface TightProduct {
     type: string;
@@ -32,7 +33,7 @@ interface GloveProduct {
 
 type Product = TightProduct | GloveProduct;
 
-const Shop: FC<ProductsProps> = ({param1:number}) => {
+const Shop: FC<ProductsProps> = ({param1, saveProducts}) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -45,6 +46,7 @@ const Shop: FC<ProductsProps> = ({param1:number}) => {
                 }
                 const data: Product[] = await response.json();
                 setProducts(data);
+                saveProducts(data.slice(-3));
             } catch (err) {
                 setError((err as Error).message);
             }
@@ -92,7 +94,16 @@ const Shop: FC<ProductsProps> = ({param1:number}) => {
     };
 
     return (
-        <div className='shop background'>
+        <div id="shop-section" className='shop background'>
+            <div className="shop-title">Shop</div>
+            <div className="lace-shop"></div>
+            {products.length > 0 ? <Sparkles snowflakeCount={10}/> : null}
+            <div className="filters-container">
+                <div>Order By</div>
+                <div>Tights</div>
+                <div>Gloves</div>
+                <div>Strass</div>
+            </div>
             <div className="products-container">
                 {products.map((product: Product, index:number) => {
                     return renderProduct(product, index);

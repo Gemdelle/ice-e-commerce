@@ -10,7 +10,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home param1={1} />} />
-        <Route path="/shop" element={<Shop param1={2} />} />
       </Routes>
     </Router>
     </div>
