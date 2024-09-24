@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Moderne Fraktur';
+    src: url('/public/fonts/Moderne Fraktur.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-background {
+    background-image: url(/public/assets/modal-background.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-family: 'Moderne Fraktur';
+    font-size: 2vh;
+    color: #485251;
+    padding: 20px;
+    width: 127vh;
+    height: 99vh;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-content {
+    height: 60%;
+    width: 80%;
+    margin: 0 auto;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.cart-title {
+    font-size: 4vh;
+    letter-spacing: 0.5vh;
+}
+
+.total-txt {
+    font-size: 3.5vh;
+}
+
+.modal-close-btn {
+    font-family: 'Moderne Fraktur';
+    font-size: 3.5vh;
+    color: #4f6765;
+    cursor: pointer;
+    position: absolute;
+    top: 13vh;
+    right: 13vh;
+}
