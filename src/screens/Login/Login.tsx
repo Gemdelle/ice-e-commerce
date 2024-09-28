@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {auth} from '../../services/firebase';
-import {signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
-import {initializeAmplitude, logEvent, setAmplitudeUserId, setAmplitudeUserProperties} from "../../services/amplitude";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';  // Import Link from react-router-dom
+import { auth } from '../../services/firebase';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { initializeAmplitude, logEvent, setAmplitudeUserId } from "../../services/amplitude";
 
 const LoginScreen: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -44,14 +44,11 @@ const LoginScreen: React.FC = () => {
             localStorage.setItem('userToken', userToken);
 
             setAmplitudeUserId(userToken);
-            setAmplitudeUserProperties({
-              email: userEmail,
-            });
             logEvent('Login');
             navigate('/home');
         } catch (err: any) {
             setError(err.message);
-            logEvent('Login', {message: err.message});
+            logEvent('Login', { message: err.message });
         }
     };
 
@@ -61,12 +58,13 @@ const LoginScreen: React.FC = () => {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
 
-            // Save user email and token in local storage
             localStorage.setItem('userEmail', user.email || '');
-            localStorage.setItem('userToken', await user.getIdToken());
+            let userToken = await user.getIdToken();
+            localStorage.setItem('userToken', userToken);
 
-            console.log('Google Login successful', user);
-            navigate('/home'); // Navigate to home after successful login
+            setAmplitudeUserId(userToken);
+            logEvent('Login');
+            navigate('/home');
         } catch (err: any) {
             setError(err.message);
             console.error('Google Login error:', err);
@@ -103,9 +101,14 @@ const LoginScreen: React.FC = () => {
                 <button type="submit" style={styles.button}>Login</button>
             </form>
             <button onClick={handleGoogleSignIn} style={styles.googleButton}>Sign in with Google</button>
+
+            {/* Link to the register page */}
+            <p style={styles.link}>
+                ¿No tienes una cuenta? <Link to="/register">Registrarse</Link>
+            </p>
         </div>
     );
-}
+};
 
 // Basic styles for the component
 const styles = {
@@ -153,6 +156,10 @@ const styles = {
     error: {
         color: 'red',
         marginBottom: '10px',
+    },
+    link: {
+        marginTop: '20px',
+        textAlign: 'center' as 'center',
     },
 };
 
