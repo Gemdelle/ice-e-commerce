@@ -1,11 +1,35 @@
-.shop.background {
-    background-attachment: fixed;
-    background-image: url(/public/assets/shop-background.png);
+@font-face {
+    font-family: 'Moderne Fraktur';
+    src: url('/public/fonts/Moderne Fraktur.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lace-shop{
+    background-image: url(/public/assets/lace-shop.png);
     background-position: center;
-    background-size: 100% 100%;
+    background-size: 100% 80%;
+    background-repeat: no-repeat;
+    width: 87vw;
+    height: 60vh;
+    position: absolute;
+    top: -7vh;
+    z-index: 999;
+}
+
+.shop.background {
+    background-image: url(/public/assets/background-shop.png);
+    background-position: top;
+    background-size: 87% 109%;
     background-repeat: no-repeat;
     width: 100vw;
-    height: 100vh;
+    height: 238vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .product-item {
@@ -13,26 +37,82 @@
     background-position: center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    width: 27vh;
-    height: 38vh;
     padding: 8vh 4vh;
+    width: 25%;
+    height: 40%;
 }
 
 .product-item img {
-    height: 74%;
-    width: 100%;
+    height: 50%;
+    width: 70%;
+    margin-top: 4vh;
 }
 
 .products-container{
-    width: 118vh;
-    height: 74vh;
+    width: 150vh;
+    height: 135vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-content: center;
+    align-content: flex-start;
     flex-wrap: wrap;
+    margin-top: 54vh;
+}
+
+
+*,*:after,*:before{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body{
+    font-family: arial;
+    font-size: 16px;
+    margin: 0;
+    background: #fff;
+    color: #000;
+    max-height: 338vh;
+    max-width: 210vh;
+}
+
+.shop-title{
+    font-family: 'Moderne Fraktur';
+    font-size: 8vh;
+    color: #e3e6d9;
     position: absolute;
-    top: 22vh;
-    right: 5vh;
-    overflow: scroll;
+    top: 13vh;
+}
+
+.filters-container {
+    font-family: 'Moderne Fraktur';
+    font-size: 4vh;
+    color: #485251;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 60vh;
+    position: absolute;
+    top: 45vh;
+}
+
+.bottom-product-item {
+    font-family: 'Moderne Fraktur';
+    font-size: 2vh;
+    color: #485251;
+    height: 10vh;
+    width: 30vh;
+    margin-top: 6vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-product-item div.add-to-cart {
+    width: 18vh;
+    cursor: pointer;
+    margin-top: 1.1vh;
+    color: #337c76;
 }

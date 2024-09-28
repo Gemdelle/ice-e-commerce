@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Moderne Fraktur';
+    src: url('/public/fonts/Moderne Fraktur.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.most-sold-container {
+    height: 100%;
+    width: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25vh;
+}
+
+.top-seller-product-item {
+    background-image: url(/public/assets/item-background.png);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 8vh 4vh;
+    height: 90%;
+    width: 30%;
+    transition: all 500ms ease-in-out;
+}
+
+#middle-product {
+    width: 35%;
+    height: 100%;
+}
+
+.top-seller-product-item img{
+    height: 50%;
+    width: 70%;
+    margin-top: 4vh;
+}
+
+.top-seller-product-item:hover {
+    scale: 103%;
+    cursor: pointer;
+
+}
+
+.top-sellers-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 86%;
+    width: 100%;
+    margin: 0 auto;
+}

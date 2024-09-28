@@ -1,9 +1,15 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import './Shop.css';
+import Sparkles from "../../components/Sparkles/Sparkles";
 
-interface ProductsProps {param1:number}
+interface ProductsProps {
+    param1: number;
+    saveProducts: (products: Product[]) => void;
+    addToCart: (productId: number, quantity: number) => Promise<void>;
+}
 
 interface TightProduct {
+    id: number;
     type: string;
     previewUrl: string;
     size: string;
@@ -16,6 +22,7 @@ interface TightProduct {
 }
 
 interface GloveProduct {
+    id: number;
     type: string;
     previewUrl: string;
     colour: string;
@@ -32,7 +39,7 @@ interface GloveProduct {
 
 type Product = TightProduct | GloveProduct;
 
-const Shop: FC<ProductsProps> = ({param1:number}) => {
+const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -45,61 +52,49 @@ const Shop: FC<ProductsProps> = ({param1:number}) => {
                 }
                 const data: Product[] = await response.json();
                 setProducts(data);
+                saveProducts(data.slice(-3));
             } catch (err) {
                 setError((err as Error).message);
             }
         };
 
         fetchProducts();
-    }, []);
+    }, [saveProducts]);
 
-    const renderProduct = (product: Product, index:number) => {
-        console.log(product.model)
-        if (product.type === 'TIGHT') {
-            const tight = product as TightProduct;
-            return (
-                <div key={tight.model+index} className="product-item">
-                    <img src={tight.previewUrl} alt={tight.model} />
-                    {/*<p>Size: {tight.size}</p>*/}
-                    {/*<p>Model: {tight.model}</p>*/}
-                    {/*<p>Pattern: {tight.pattern}</p>*/}
-                    {/*<p>Price: ${tight.price}</p>*/}
-                    {/*<p>Stock: {tight.stock}</p>*/}
-                    {/*<p>Strass Quantity: {tight.strass_quantity}</p>*/}
-                    {/*<p>Strass Colour: {tight.strass_colour}</p>*/}
+    const handleAddToCart = useCallback((productId: number) => {
+        addToCart(productId, 1);
+    }, [addToCart]);
+
+    const renderProduct = useCallback((product: Product, index: number) => {
+        return (
+            <div key={product.model + index} className="product-item">
+                <img src={product.previewUrl} alt={product.model} />
+                <div className='bottom-product-item'>
+                    <div>Model: {product.model}</div>
+                    <div>Price: ${product.price}</div>
+                    <div className='add-to-cart' onClick={() => handleAddToCart(product.id)}>Add to Cart</div>
                 </div>
-            );
-        } else if (product.type === 'GLOVE') {
-            const glove = product as GloveProduct;
-            return (
-                <div key={glove.model} className="product-item">
-                    <img src={glove.previewUrl} alt={glove.model} />
-                    {/*<p>Colour: {glove.colour}</p>*/}
-                    {/*<p>Model: {glove.model}</p>*/}
-                    {/*<p>Pattern: {glove.pattern}</p>*/}
-                    {/*<p>Price: ${glove.price}</p>*/}
-                    {/*<p>Stock: {glove.stock}</p>*/}
-                    {/*<p>Gem Stone: {glove.gem_stone}</p>*/}
-                    {/*<p>Gem Colour: {glove.gem_colour}</p>*/}
-                    {/*<p>Gem Opacity: {glove.gem_opacity}</p>*/}
-                    {/*<p>Strass Quantity: {glove.strass_quantity}</p>*/}
-                    {/*<p>Strass Colour: {glove.strass_colour}</p>*/}
-                </div>
-            );
-        } else {
-            console.log("ERROR")
-        }
-    };
+            </div>
+        );
+    }, [handleAddToCart]);
 
     return (
-        <div className='shop background'>
-            <div className="products-container">
-                {products.map((product: Product, index:number) => {
-                    return renderProduct(product, index);
-                })}
+        <div id="shop-section" className='shop background'>
+            <div className="shop-title">Shop</div>
+            <div className="lace-shop"></div>
+            {products.length > 0 ? <Sparkles snowflakeCount={10}/> : null}
+            <div className="filters-container">
+                <div>Order By</div>
+                <div>Tights</div>
+                <div>Gloves</div>
+                <div>Strass</div>
             </div>
+            <div className="products-container">
+                {products.map((product: Product, index: number) => renderProduct(product, index))}
+            </div>
+            {error && <div className="error-message">{error}</div>}
         </div>
     );
-};
+});
 
 export default Shop;
