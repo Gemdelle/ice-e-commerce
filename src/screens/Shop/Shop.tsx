@@ -1,6 +1,7 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import './Shop.css';
 import Sparkles from "../../components/Sparkles/Sparkles";
+import {FaWhatsapp} from "react-icons/fa";
 
 interface ProductsProps {
     param1: number;
@@ -72,7 +73,7 @@ const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart })
                 <div className='bottom-product-item'>
                     <div>Model: {product.model}</div>
                     <div>Price: ${product.price}</div>
-                    <div className='add-to-cart' onClick={() => handleAddToCart(product.id)}>Add to Cart</div>
+                    <div className='add-to-cart' onClick={() => handleAddToCart(product.id)}>Agregar al carrito</div>
                 </div>
             </div>
         );
@@ -80,21 +81,45 @@ const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart })
 
     return (
         <div id="shop-section" className='shop background'>
-            <div className="shop-title">Shop</div>
+            <div className="shop-title">Tienda</div>
             <div className="lace-shop"></div>
             {products.length > 0 ? <Sparkles snowflakeCount={10}/> : null}
-            <div className="filters-container">
-                <div>Order By</div>
-                <div>Tights</div>
-                <div>Gloves</div>
-                <div>Strass</div>
-            </div>
+            {/*<div className="filters-container">*/}
+            {/*    <div>Order By</div>*/}
+            {/*    <div>Tights</div>*/}
+            {/*    <div>Gloves</div>*/}
+            {/*    <div>Strass</div>*/}
+            {/*</div>*/}
             <div className="products-container">
                 {products.map((product: Product, index: number) => renderProduct(product, index))}
             </div>
             {error && <div className="error-message">{error}</div>}
+            <div id="contact-us-section" className='contact-section'>
+                <div className="contact-title">Contacto</div>
+                <div className="whassap-container">
+                    <a href={`https://wa.me/541141414912`} target="_blank" rel="noopener noreferrer" style={styles.container}>
+                        <FaWhatsapp size={24} style={styles.icon} />
+                        <span style={styles.number}>+54 11 4141 4912</span>
+                    </a>
+                </div>
+            </div>
         </div>
     );
 });
+
+const styles = {
+    container: {
+        display: 'flex',
+        alignItems: 'center',
+        textDecoration: 'none',
+        color: '#e3e6d9',
+    },
+    icon: {
+        marginRight: '8px',
+    },
+    number: {
+        fontSize: '4vh',
+    },
+};
 
 export default Shop;

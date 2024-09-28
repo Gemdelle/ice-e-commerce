@@ -1,9 +1,9 @@
 import React, {FC, useState, useEffect, useCallback} from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import Shop from "../Shop/Shop";
 import TopSellers from "../../components/TopSellers/TopSellers";
 import Modal from "../../components/Modal/Modal";
+import Shop from "../Shop/Shop";
+import {logEvent} from "../../services/amplitude";
 
 interface HomeProps {
     param1: number;
@@ -25,9 +25,9 @@ interface CartState {
     total_price: number;
 }
 
-const Home: FC<HomeProps> = ({ param1 }) => {
+const Home: FC<HomeProps> = ({param1}) => {
     const [products, setProducts] = useState<any[]>([]);
-    const [cart, setCart] = useState<CartState>({ products: [], total_price: 0 });
+    const [cart, setCart] = useState<CartState>({products: [], total_price: 0});
     const [showCartButton, setShowCartButton] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,6 +37,7 @@ const Home: FC<HomeProps> = ({ param1 }) => {
 
     const saveProducts = useCallback((products: any[]) => {
         setProducts(products);
+        logEvent('Page Viewed', {page: 'Home'});
     }, []);
 
     const addToCart = useCallback(async (productId: number, quantity: number) => {
@@ -55,39 +56,49 @@ const Home: FC<HomeProps> = ({ param1 }) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+            logEvent('Added Product To Cart', {
+                product_id: productId,
+                quantity: quantity,
+            });
             const data = await response.json();
             setCart(data);
         } catch (error) {
+            logEvent('Error Adding Product To Cart', {
+                product_id: productId,
+                quantity: quantity,
+            });
             console.error('Error adding product to cart:', error);
         }
     }, []);
 
     const openModal = () => {
         setIsModalOpen(true);
+        //TODO: VER COMO TRACKEAR TODOS LOS ITEMS DEL CARRITO
+        logEvent('Open Cart Modal');
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
+        logEvent('Close Cart Modal');
     };
 
     return (
         <div className='home'>
-            <div className='left-border' />
-            <div className='right-border' />
+            <div className='left-border'/>
+            <div className='right-border'/>
             <div className='background'>
                 <div className='content'>
                     <div className="nav-bar-container">
-                        <a className="nav-item">Home</a>
-                        <a href={`#shop-section`} className="nav-item">Shop</a>
-                        <a className="nav-item">Us</a>
-                        <a className="nav-item">Contact Us</a>
+                        <a className="nav-item">Inicio</a>
+                        <a href={`#shop-section`} className="nav-item">Tienda</a>
+                        <a className="nav-item">Nosotros</a>
+                        <a href={'#contact-us-section'} className="nav-item">Contacto</a>
                     </div>
-                    <TopSellers products={products} param1={1} />
-                    <a href={`#shop-section`} className="view-more">View more</a>
+                    <TopSellers products={products} param1={1}/>
+                    <a href={`#shop-section`} className="view-more">Ver más</a>
                 </div>
             </div>
-            <Shop saveProducts={saveProducts} param1={1} addToCart={addToCart} />
+            <Shop saveProducts={saveProducts} param1={1} addToCart={addToCart}/>
 
             <div className={`cart-button-container ${showCartButton ? 'show' : ''}`}>
                 <button className="cart-button" onClick={openModal}>
@@ -100,7 +111,7 @@ const Home: FC<HomeProps> = ({ param1 }) => {
                 <div className="modal-content">
                     {cart.products.map((item) => (
                         <div key={item.product._id} className="cart-item">
-                            <img src={item.product._previewUrl} alt={item.product._model} />
+                            <img src={item.product._previewUrl} alt={item.product._model}/>
                             <div className="cart-item-description">
                                 <div>{item.product._model}</div>
                                 <div>Quantity: {item.quantity}</div>
