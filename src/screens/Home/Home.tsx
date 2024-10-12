@@ -1,9 +1,9 @@
-import React, {FC, useState, useEffect, useCallback} from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
 import './Home.css';
 import TopSellers from "../../components/TopSellers/TopSellers";
 import Modal from "../../components/Modal/Modal";
 import Shop from "../Shop/Shop";
-import {logEvent} from "../../services/amplitude";
+import { logEvent } from "../../services/amplitude";
 
 interface HomeProps {
     param1: number;
@@ -25,11 +25,38 @@ interface CartState {
     total_price: number;
 }
 
-const Home: FC<HomeProps> = ({param1}) => {
+const Home: FC<HomeProps> = ({ param1 }) => {
     const [products, setProducts] = useState<any[]>([]);
-    const [cart, setCart] = useState<CartState>({products: [], total_price: 0});
+    const [cart, setCart] = useState<CartState>({ products: [], total_price: 0 });
     const [showCartButton, setShowCartButton] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/cart');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const cartData: CartState = await response.json();
+                logEvent('Cart Loaded', {
+                    total_items: cartData.products.length,
+                    total_price: cartData.total_price,
+                    products: cartData.products.map(item => ({
+                        product_id: item.product._id,
+                        product_model: item.product._model,
+                        quantity: item.quantity,
+                        total_price: item.total_price
+                    }))
+                });
+                setCart(cartData);
+            } catch (error) {
+                console.error('Error fetching cart:', error);
+            }
+        };
+
+        fetchCart();
+    }, []);
 
     useEffect(() => {
         setShowCartButton(cart.products.length > 0);
@@ -37,7 +64,7 @@ const Home: FC<HomeProps> = ({param1}) => {
 
     const saveProducts = useCallback((products: any[]) => {
         setProducts(products);
-        logEvent('Page Viewed', {page: 'Home'});
+        logEvent('Page Viewed', { page: 'Home' });
     }, []);
 
     const addToCart = useCallback(async (productId: number, quantity: number) => {
@@ -73,8 +100,16 @@ const Home: FC<HomeProps> = ({param1}) => {
 
     const openModal = () => {
         setIsModalOpen(true);
-        //TODO: VER COMO TRACKEAR TODOS LOS ITEMS DEL CARRITO
-        logEvent('Open Cart Modal');
+        logEvent('Open Cart Modal', {
+            total_items: cart.products.length,
+            total_price: cart.total_price,
+            products: cart.products.map(item => ({
+                product_id: item.product._id,
+                product_model: item.product._model,
+                quantity: item.quantity,
+                total_price: item.total_price
+            }))
+        });
     };
 
     const closeModal = () => {

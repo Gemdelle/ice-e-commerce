@@ -51,10 +51,16 @@ html {
 
 .nav-item {
     font-family: 'Moderne Fraktur';
-    font-size: 4vh;
+    font-size: 3.5vh;
     color: #e3e6d9;
     text-decoration: none;
     cursor:pointer;
+    transition: all 500ms ease-in-out;
+}
+
+.nav-item:hover{
+    color: white;
+    scale: 103%;
 }
 
 .content {

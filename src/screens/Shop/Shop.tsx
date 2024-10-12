@@ -2,6 +2,8 @@ import React, {FC, useCallback, useEffect, useState} from 'react';
 import './Shop.css';
 import Sparkles from "../../components/Sparkles/Sparkles";
 import {FaWhatsapp} from "react-icons/fa";
+import Modal from "../../components/Modal/Modal";
+import {logEvent} from "../../services/amplitude";
 
 interface ProductsProps {
     param1: number;
@@ -42,7 +44,9 @@ type Product = TightProduct | GloveProduct;
 
 const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart }) => {
     const [products, setProducts] = useState<Product[]>([]);
+    const [productDescription, setProductDescription] = useState<Product | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -66,14 +70,26 @@ const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart })
         addToCart(productId, 1);
     }, [addToCart]);
 
+    const openDescriptionModal = (product: Product) => {
+        setProductDescription(product)
+        setIsDescriptionModalOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsDescriptionModalOpen(false);
+    };
+
     const renderProduct = useCallback((product: Product, index: number) => {
         return (
             <div key={product.model + index} className="product-item">
-                <img src={product.previewUrl} alt={product.model} />
+                <div className={'product-id'}>{product.id}</div>
+                <img src={product.previewUrl} alt={product.model}/>
                 <div className='bottom-product-item'>
-                    <div>Model: {product.model}</div>
-                    <div>Price: ${product.price}</div>
-                    <div className='add-to-cart' onClick={() => handleAddToCart(product.id)}>Agregar al carrito</div>
+                    <div>{product.model.toUpperCase()}</div>
+                    <div>{product.pattern}</div>
+                    <div>${product.price}</div>
+                    {/*<div className='add-to-cart' onClick={() => handleAddToCart(product.id)}>Agregar al carrito</div>*/}
+                    <div className='add-to-cart' onClick={() => openDescriptionModal(product)}>Ver más</div>
                 </div>
             </div>
         );
@@ -103,6 +119,26 @@ const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart })
                     </a>
                 </div>
             </div>
+            {(productDescription) ?
+                <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
+                    <h2 className="description-title">- {productDescription.model.toUpperCase()} -</h2>
+                    <div className="modal-content description">
+                        <div className='description-img-container'>
+                            <img src={productDescription.previewUrl} alt={productDescription.model}/>
+                        </div>
+                        <div className='description-container'>
+                            <div>{productDescription.pattern}</div>
+                            {/*<div>{productDescription.size}</div>*/}
+                            <div>Strass Quantity: {productDescription.strass_quantity}</div>
+                            <div>Strass Colour: {productDescription.strass_colour}</div>
+                            <div>${productDescription.price}</div>
+                        </div>
+                    </div>
+                    <div className="modal-close-btn description-close-button" onClick={closeModal}>Close</div>
+
+                </Modal>: null
+            }
+
         </div>
     );
 });

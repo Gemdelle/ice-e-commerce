@@ -39,7 +39,7 @@
     background-repeat: no-repeat;
     padding: 8vh 4vh;
     width: 25%;
-    height: 40%;
+    height: 50%;
 }
 
 .product-item img {
@@ -130,4 +130,57 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.product-id{
+    font-family: 'Moderne Fraktur';
+    font-size: 3vh;
+    color: black;
+}
+
+.modal-content img {
+    width: 70%;
+    height: 60%;
+}
+
+.modal-content.description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+.description-img-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.description-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh;
+}
+
+.description-title {
+    position: absolute;
+    top: 20vh;
+    font-size: 4vh;
+    letter-spacing: 0.5vh;
+}
+
+.description-close-button{
+    font-family: 'Moderne Fraktur';
+    font-size: 3.5vh;
+    color: #4f6765;
+    cursor: pointer;
+    position: absolute;
+    top: 21vh;
+    right: 13vh;
 }
