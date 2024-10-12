@@ -10,7 +10,7 @@
     background-position: center;
     background-size: 100% 80%;
     background-repeat: no-repeat;
-    width: 87vw;
+    width: 100vw;
     height: 60vh;
     position: absolute;
     top: -7vh;
@@ -20,7 +20,7 @@
 .shop.background {
     background-image: url(/public/assets/background-shop.png);
     background-position: top;
-    background-size: 87% 109%;
+    background-size: 100% 109%;
     background-repeat: no-repeat;
     width: 100vw;
     height: 238vh;

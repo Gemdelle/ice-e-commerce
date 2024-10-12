@@ -84,8 +84,6 @@ const Home: FC<HomeProps> = ({param1}) => {
 
     return (
         <div className='home'>
-            <div className='left-border'/>
-            <div className='right-border'/>
             <div className='background'>
                 <div className='content'>
                     <div className="nav-bar-container">
