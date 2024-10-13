@@ -127,7 +127,7 @@ const Home: FC<HomeProps> = ({ param1 }) => {
                         <a className="nav-item">Nosotros</a>
                         <a href={'#contact-us-section'} className="nav-item">Contacto</a>
                     </div>
-                    <TopSellers products={products} param1={1}/>
+                    <TopSellers products={mockedProducts}/>
                     <a href={`#shop-section`} className="view-more">Ver más</a>
                 </div>
             </div>
@@ -159,5 +159,69 @@ const Home: FC<HomeProps> = ({ param1 }) => {
         </div>
     );
 };
+
+//TODO: Pasar a TopSellers los productos reales y no los mockeados.
+const mockedProducts = [
+    {
+        id: 1,
+        model: "stirrup",
+        pattern: "Sprinkle",
+        previewUrl: "https://lh3.googleusercontent.com/d/1O4Dmz9NQWmHeP6uEJSy_F6Pvnf25KP4Z=w200?authuser=0",
+        price: 12531,
+        size: 10,
+        stock: 1,
+        strass_colour: "shimmering",
+        strass_quantity: 80,
+        type: "TIGHT"
+    },
+    {
+        id: 1,
+        model: "stirrup",
+        pattern: "Sprinkle",
+        previewUrl: "https://drive.google.com/thumbnail?id=17zcbv5TlILK8WHJ7IfPBTqav15DYq_sO&sz=w200&format=png",
+        price: 12531,
+        size: 10,
+        stock: 1,
+        strass_colour: "shimmering",
+        strass_quantity: 80,
+        type: "TIGHT"
+    },
+    {
+        id: 1,
+        model: "stirrup",
+        pattern: "Sprinkle",
+        previewUrl: "https://drive.google.com/thumbnail?id=1m249Mh1JvwrNl9GkOPdSRjE71pvUqB-U&sz=w200&format=png",
+        price: 12531,
+        size: 10,
+        stock: 1,
+        strass_colour: "shimmering",
+        strass_quantity: 80,
+        type: "TIGHT"
+    },
+    {
+        id: 1,
+        model: "stirrup",
+        pattern: "Sprinkle",
+        previewUrl: "https://lh3.googleusercontent.com/d/144Z1RFUCZFweM9Mez6KhPiABsv4qqSfa=w200?authuser=0",
+        price: 12531,
+        size: 10,
+        stock: 1,
+        strass_colour: "shimmering",
+        strass_quantity: 80,
+        type: "TIGHT"
+    },
+    {
+        id: 1,
+        model: "stirrup",
+        pattern: "Sprinkle",
+        previewUrl: "https://lh3.googleusercontent.com/d/144Z1RFUCZFweM9Mez6KhPiABsv4qqSfa=w200?authuser=0",
+        price: 12531,
+        size: 10,
+        stock: 1,
+        strass_colour: "shimmering",
+        strass_quantity: 80,
+        type: "TIGHT"
+    }
+]
 
 export default Home;
