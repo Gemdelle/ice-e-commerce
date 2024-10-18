@@ -98,6 +98,34 @@ const Home: FC<HomeProps> = ({ param1 }) => {
         }
     }, []);
 
+    const removeFromCart = useCallback(async (productId: number) => {
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/cart', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            logEvent('Removed Product From Cart', {
+                product_id: productId,
+            });
+            const data = await response.json();
+            setCart(data);
+        } catch (error) {
+            logEvent('Error Removing Product From Cart', {
+                product_id: productId,
+            });
+            console.error('Error removing product from cart:', error);
+        }
+    }, []);
+
     const openModal = () => {
         setIsModalOpen(true);
         logEvent('Open Cart Modal', {
@@ -131,7 +159,7 @@ const Home: FC<HomeProps> = ({ param1 }) => {
                     <a href={`#shop-section`} className="view-more">Ver más</a>
                 </div>
             </div>
-            <Shop saveProducts={saveProducts} param1={1} addToCart={addToCart}/>
+            <Shop saveProducts={saveProducts} addToCart={addToCart}/>
 
             <div className={`cart-button-container ${showCartButton ? 'show' : ''}`}>
                 <button className="cart-button" onClick={openModal}>

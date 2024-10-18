@@ -3,10 +3,8 @@ import './Shop.css';
 import Sparkles from "../../components/Sparkles/Sparkles";
 import {FaWhatsapp} from "react-icons/fa";
 import Modal from "../../components/Modal/Modal";
-import {logEvent} from "../../services/amplitude";
 
 interface ProductsProps {
-    param1: number;
     saveProducts: (products: Product[]) => void;
     addToCart: (productId: number, quantity: number) => Promise<void>;
 }
@@ -42,11 +40,12 @@ interface GloveProduct {
 
 type Product = TightProduct | GloveProduct;
 
-const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart }) => {
+const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [productDescription, setProductDescription] = useState<Product | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
+    const [quantity, setQuantity] = useState(1); // State to track quantity
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -67,45 +66,48 @@ const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart })
     }, [saveProducts]);
 
     const handleAddToCart = useCallback((productId: number) => {
-        addToCart(productId, 1);
-    }, [addToCart]);
+        addToCart(productId, quantity);
+        setQuantity(1);
+    }, [addToCart, quantity]);
 
     const openDescriptionModal = (product: Product) => {
-        setProductDescription(product)
+        setProductDescription(product);
+        setQuantity(1);
         setIsDescriptionModalOpen(true);
-    }
+    };
 
     const closeModal = () => {
         setIsDescriptionModalOpen(false);
     };
 
+    const incrementQuantity = () => {
+        setQuantity(prev => prev + 1);
+    };
+
+    const decrementQuantity = () => {
+        setQuantity(prev => (prev > 1 ? prev - 1 : prev));
+    };
+
     const renderProduct = useCallback((product: Product, index: number) => {
         return (
             <div key={product.model + index} className="product-item">
-                <div className={'product-id'}>{product.id}</div>
+                <div className={'product-id'}>#{product.id}</div>
                 <img src={product.previewUrl} alt={product.model}/>
                 <div className='bottom-product-item'>
                     <div>{product.model.toUpperCase()}</div>
                     <div>{product.pattern}</div>
                     <div>${product.price}</div>
-                    {/*<div className='add-to-cart' onClick={() => handleAddToCart(product.id)}>Agregar al carrito</div>*/}
                     <div className='add-to-cart' onClick={() => openDescriptionModal(product)}>Ver más</div>
                 </div>
             </div>
         );
-    }, [handleAddToCart]);
+    }, []);
 
     return (
         <div id="shop-section" className='shop background'>
             <div className="shop-title">Tienda</div>
             <div className="lace-shop"></div>
             {products.length > 0 ? <Sparkles snowflakeCount={10}/> : null}
-            {/*<div className="filters-container">*/}
-            {/*    <div>Order By</div>*/}
-            {/*    <div>Tights</div>*/}
-            {/*    <div>Gloves</div>*/}
-            {/*    <div>Strass</div>*/}
-            {/*</div>*/}
             <div className="products-container">
                 {products.map((product: Product, index: number) => renderProduct(product, index))}
             </div>
@@ -113,35 +115,111 @@ const Shop: FC<ProductsProps> = React.memo(({ param1, saveProducts, addToCart })
             <div id="contact-us-section" className='contact-section'>
                 <div className="contact-title">Contacto</div>
                 <div className="whassap-container">
-                    <a href={`https://wa.me/541141414912`} target="_blank" rel="noopener noreferrer" style={styles.container}>
-                        <FaWhatsapp size={24} style={styles.icon} />
+                    <a href={`https://wa.me/541141414912`} target="_blank" rel="noopener noreferrer"
+                       style={styles.container}>
+                        <FaWhatsapp size={24} style={styles.icon}/>
                         <span style={styles.number}>+54 11 4141 4912</span>
                     </a>
                 </div>
             </div>
             {(productDescription) ?
-                <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
-                    <h2 className="description-title">- {productDescription.model.toUpperCase()} -</h2>
-                    <div className="modal-content description">
-                        <div className='description-img-container'>
-                            <img src={productDescription.previewUrl} alt={productDescription.model}/>
-                        </div>
-                        <div className='description-container'>
-                            <div>{productDescription.pattern}</div>
-                            {/*<div>{productDescription.size}</div>*/}
-                            <div>Strass Quantity: {productDescription.strass_quantity}</div>
-                            <div>Strass Colour: {productDescription.strass_colour}</div>
-                            <div>${productDescription.price}</div>
-                        </div>
-                    </div>
-                    <div className="modal-close-btn description-close-button" onClick={closeModal}>Close</div>
+                (productDescription.type == "TIGHT") ?
+                    <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
+                        <div className="modal-content description">
+                            <div className='description-img-container'>
+                                <img src={productDescription.previewUrl} alt={productDescription.model}/>
+                            </div>
+                            <div className='description-container'>
+                                <div>{productDescription.type}</div>
+                                <div className='inline-model'>
+                                    <div>{productDescription.id}</div>
+                                    <div>{productDescription.model}</div>
+                                    <div>{productDescription.pattern}</div>
+                                </div>
+                                <div>Cantidad de Strass: {productDescription.strass_quantity}</div>
+                                <div>Stock: {productDescription.stock}</div>
 
-                </Modal>: null
+                                <div className='colour-section'>
+                                    <div>Color de strass</div>
+                                    <div className='colour'>
+                                        <div className='tight-colour'>
+                                            <div className='colour-crystal'></div>
+                                            <div className='colour-shimmering'></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='checkout-section'>
+                                    <div className='quantity-section'>
+                                        <div>Cantidad</div>
+                                        <div className='quantity-controls'>
+                                            <div onClick={decrementQuantity}>-</div>
+                                            <div>{quantity}</div>
+                                            <div onClick={incrementQuantity}>+</div>
+                                        </div>
+                                    </div>
+                                    <div className='buy-section'>
+                                        <div>${(productDescription.price * quantity).toFixed(2)}</div>
+                                        <div className='buy-btn'
+                                             onClick={() => handleAddToCart(productDescription.id)}>Agregar al Carrito
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-close-btn description-close-button" onClick={closeModal}>Close</div>
+                    </Modal> :
+
+                    <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
+                        <div className="modal-content description">
+                            <div className='description-img-container'>
+                                <img src={productDescription.previewUrl} alt={productDescription.model}/>
+                            </div>
+                            <div className='description-container'>
+                                <div>{productDescription.type}</div>
+                                <div className='inline-model'>
+                                    <div>{productDescription.id}</div>
+                                    <div>{productDescription.model}</div>
+                                    <div>{productDescription.pattern}</div>
+                                </div>
+                                <div>Cantidad de Strass: {productDescription.strass_quantity}</div>
+                                <div>Stock: {productDescription.stock}</div>
+
+                                <div className='colour-section'>
+                                    <div>Color de strass</div>
+                                    <div className='colour'>
+                                        <div className='tight-colour'>
+                                            <div className='colour-crystal'></div>
+                                            <div className='colour-shimmering'></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='checkout-section'>
+                                    <div className='quantity-section'>
+                                        <div>Cantidad</div>
+                                        <div className='quantity-controls'>
+                                            <div onClick={decrementQuantity}>-</div>
+                                            <div>{quantity}</div>
+                                            <div onClick={incrementQuantity}>+</div>
+                                        </div>
+                                    </div>
+                                    <div className='buy-section'>
+                                        <div>${(productDescription.price * quantity).toFixed(2)}</div>
+                                        <div className='buy-btn'
+                                             onClick={() => handleAddToCart(productDescription.id)}>Agregar al Carrito
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-close-btn description-close-button" onClick={closeModal}>Close</div>
+                    </Modal> : null
             }
-
         </div>
     );
 });
+
 
 const styles = {
     container: {
