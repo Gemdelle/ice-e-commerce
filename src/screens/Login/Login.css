@@ -11,7 +11,7 @@ html {
 .background {
     background-image: url(/public/assets/background.png);
     background-position: bottom;
-    background-size: 100% 109%;
+    background-size: 87% 109%;
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
@@ -51,16 +51,10 @@ html {
 
 .nav-item {
     font-family: 'Moderne Fraktur';
-    font-size: 3.5vh;
+    font-size: 4vh;
     color: #e3e6d9;
     text-decoration: none;
     cursor:pointer;
-    transition: all 500ms ease-in-out;
-}
-
-.nav-item:hover{
-    color: white;
-    scale: 103%;
 }
 
 .content {
