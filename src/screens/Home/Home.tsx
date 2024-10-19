@@ -30,11 +30,11 @@ const Home: FC<HomeProps> = ({ param1 }) => {
     const [cart, setCart] = useState<CartState>({ products: [], total_price: 0 });
     const [showCartButton, setShowCartButton] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    console.log(products)
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/cart');
+                const response = await fetch('https://ice-e-commerce-back.vercel.app/api/cart');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -69,7 +69,7 @@ const Home: FC<HomeProps> = ({ param1 }) => {
 
     const addToCart = useCallback(async (productId: number, quantity: number) => {
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/cart', {
+            const response = await fetch('https://ice-e-commerce-back.vercel.app/api/cart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,33 +98,33 @@ const Home: FC<HomeProps> = ({ param1 }) => {
         }
     }, []);
 
-    const removeFromCart = useCallback(async (productId: number) => {
-        try {
-            const response = await fetch('http://127.0.0.1:5000/api/cart', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    product_id: productId,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            logEvent('Removed Product From Cart', {
-                product_id: productId,
-            });
-            const data = await response.json();
-            setCart(data);
-        } catch (error) {
-            logEvent('Error Removing Product From Cart', {
-                product_id: productId,
-            });
-            console.error('Error removing product from cart:', error);
-        }
-    }, []);
+    // const removeFromCart = useCallback(async (productId: number) => {
+    //     try {
+    //         const response = await fetch('https://ice-e-commerce-back.vercel.app/api/cart', {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 product_id: productId,
+    //             }),
+    //         });
+    //
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         logEvent('Removed Product From Cart', {
+    //             product_id: productId,
+    //         });
+    //         const data = await response.json();
+    //         setCart(data);
+    //     } catch (error) {
+    //         logEvent('Error Removing Product From Cart', {
+    //             product_id: productId,
+    //         });
+    //         console.error('Error removing product from cart:', error);
+    //     }
+    // }, []);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -149,10 +149,10 @@ const Home: FC<HomeProps> = ({ param1 }) => {
         <div className='home'>
             <div className='background'>
                 <div className='content'>
-                    <div className="nav-bar-container">
-                        <a className="nav-item">Inicio</a>
+                    <div id="inicio" className="nav-bar-container">
+                        <a href={"#inicio"} className="nav-item">Inicio</a>
                         <a href={`#shop-section`} className="nav-item">Tienda</a>
-                        <a className="nav-item">Nosotros</a>
+                        <a href={"#inicio"} className="nav-item">Nosotros</a>
                         <a href={'#contact-us-section'} className="nav-item">Contacto</a>
                     </div>
                     <TopSellers products={mockedProducts}/>

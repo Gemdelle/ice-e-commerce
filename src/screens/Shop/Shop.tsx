@@ -45,12 +45,12 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
     const [productDescription, setProductDescription] = useState<Product | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
-    const [quantity, setQuantity] = useState(1); // State to track quantity
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/products');
+                const response = await fetch('https://ice-e-commerce-back.vercel.app/api/products');
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
                 }
@@ -91,22 +91,23 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
     const renderProduct = useCallback((product: Product, index: number) => {
         return (
             <div key={product.model + index} className="product-item">
-                <div className={'product-id'}>#{product.id}</div>
+                <div className={'product-id'}> </div>
                 <img src={product.previewUrl} alt={product.model}/>
                 <div className='bottom-product-item'>
                     <div>{product.model.toUpperCase()}</div>
                     <div>{product.pattern}</div>
                     <div>${product.price}</div>
-                    <div className='add-to-cart' onClick={() => openDescriptionModal(product)}>Ver más</div>
+                    {/*<div className='add-to-cart' onClick={() => openDescriptionModal(product)}>Ver más</div>*/}
                 </div>
             </div>
         );
     }, []);
 
     return (
-        <div id="shop-section" className='shop background'>
+        <div id="shop-section" className='shop-background'>
             <div className="shop-title">Tienda</div>
             <div className="lace-shop"></div>
+            <div className="main-tienda"></div>
             {products.length > 0 ? <Sparkles snowflakeCount={10}/> : null}
             <div className="products-container">
                 {products.map((product: Product, index: number) => renderProduct(product, index))}
@@ -123,7 +124,7 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
                 </div>
             </div>
             {(productDescription) ?
-                (productDescription.type == "TIGHT") ?
+                (productDescription.type === "TIGHT") ?
                     <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
                         <div className="modal-content description">
                             <div className='description-img-container'>
