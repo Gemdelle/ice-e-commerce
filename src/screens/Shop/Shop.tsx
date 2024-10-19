@@ -70,11 +70,11 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
         setQuantity(1);
     }, [addToCart, quantity]);
 
-    const openDescriptionModal = (product: Product) => {
-        setProductDescription(product);
-        setQuantity(1);
-        setIsDescriptionModalOpen(true);
-    };
+    // const openDescriptionModal = (product: Product) => {
+    //     setProductDescription(product);
+    //     setQuantity(1);
+    //     setIsDescriptionModalOpen(true);
+    // };
 
     const closeModal = () => {
         setIsDescriptionModalOpen(false);
