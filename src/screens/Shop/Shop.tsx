@@ -42,7 +42,7 @@ type Product = TightProduct | GloveProduct;
 
 const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
     const [products, setProducts] = useState<Product[]>([]);
-    const [productDescription, setProductDescription] = useState<Product | null>(null);
+    const [productDescription] = useState<Product | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
     const [quantity, setQuantity] = useState(1);
