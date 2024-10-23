@@ -48,12 +48,19 @@
     padding: 6.3vh 4vh;
     width: 25%;
     height: 50%;
+    position: relative;
 }
 
-.product-item img {
+.product-item img.tight {
     height: 50%;
     width: 50%;
-    margin-top: 8vh;
+    margin-top: 5vh;
+}
+
+.product-item img.glove {
+    height: 50%;
+    width: 60%;
+    margin-top: 5vh;
 }
 
 .products-container{
@@ -106,12 +113,12 @@ body{
 }
 
 .bottom-product-item {
-    font-family:  sans-serif;
+    font-family:  "Edwardian Script ITC", sans-serif;
     font-size: 2vh;
     color: #485251;
     height: 10vh;
     width: 30vh;
-    margin-top: 6vh;
+    margin-top: 8.8vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,9 +127,10 @@ body{
 
 .bottom-product-item div.add-to-cart {
     width: 18vh;
+    height: 5vh;
     cursor: pointer;
-    margin-top: 1.1vh;
     color: #337c76;
+    font-size: 3vh;
 }
 
 .contact-title{
@@ -140,9 +148,9 @@ body{
     justify-content: space-between;
 }
 
-.product-id{
+.product-price{
     font-family: 'Moderne Fraktur';
-    font-size: 3vh;
+    font-size: 2.5vh;
     color: black;
 }
 
@@ -193,4 +201,39 @@ body{
     position: absolute;
     top: 21vh;
     right: 13vh;
+}
+
+.colors-container{
+    position: absolute;
+    right: 9vh;
+    bottom: 17vh;
+    width: 18vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.color{
+    width: 3vh;
+    height: 3vh;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.red{
+    background-color: red;
+}
+.blue{
+    background-color: blue;
+}
+.green{
+    background-color: green;
+}
+.purple{
+    background-color: purple;
+}
+
+.product-pattern-name {
+    font-family: 'Edwardian Script ITC', sans-serif;
+    font-size: 4.7vh;
+    color: #43443e;
 }

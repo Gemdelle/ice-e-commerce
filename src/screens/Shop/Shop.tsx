@@ -42,7 +42,7 @@ type Product = TightProduct | GloveProduct;
 
 const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
     const [products, setProducts] = useState<Product[]>([]);
-    const [productDescription] = useState<Product | null>(null);
+    const [productDescription, setProductDescription ] = useState<Product | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -70,11 +70,11 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
         setQuantity(1);
     }, [addToCart, quantity]);
 
-    // const openDescriptionModal = (product: Product) => {
-    //     setProductDescription(product);
-    //     setQuantity(1);
-    //     setIsDescriptionModalOpen(true);
-    // };
+    const openDescriptionModal = (product: Product) => {
+        setProductDescription(product);
+        setQuantity(1);
+        setIsDescriptionModalOpen(true);
+    };
 
     const closeModal = () => {
         setIsDescriptionModalOpen(false);
@@ -88,16 +88,35 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
         setQuantity(prev => (prev > 1 ? prev - 1 : prev));
     };
 
+    const changeColor = (index: number) => {
+        // Generate a random width and height between 200 and 300
+        const randomWidth = Math.floor(Math.random() * 100) + 200;
+        const randomHeight = Math.floor(Math.random() * 100) + 200;
+        const randomImageUrl = `https://picsum.photos/${randomWidth}/${randomHeight}`;
+
+        setProducts(prevProducts =>
+            prevProducts.map((product, i) =>
+                i === index
+                    ? { ...product, previewUrl: randomImageUrl }
+                    : product
+            )
+        );
+    };
+
     const renderProduct = useCallback((product: Product, index: number) => {
         return (
             <div key={product.model + index} className="product-item">
-                <div className={'product-id'}> </div>
-                <img src={product.previewUrl} alt={product.model}/>
+                <div className={'product-price'}>${product.price}</div>
+                <img className={product.type === "TIGHT"? "tight" : "glove"} src={product.previewUrl} alt={product.model}/>
                 <div className='bottom-product-item'>
-                    <div>{product.model.toUpperCase()}</div>
-                    <div>{product.pattern}</div>
-                    <div>${product.price}</div>
-                    {/*<div className='add-to-cart' onClick={() => openDescriptionModal(product)}>Ver más</div>*/}
+                    <div className="product-pattern-name">{product.pattern}</div>
+                    <div className='add-to-cart' onClick={() => openDescriptionModal(product)}>Ver más</div>
+                </div>
+                <div className="colors-container">
+                    <div className="color red" onClick={()=> changeColor(index)}></div>
+                    <div className="color blue" onClick={()=> changeColor(index)}></div>
+                    <div className="color green" onClick={()=> changeColor(index)}></div>
+                    <div className="color purple" onClick={()=> changeColor(index)}></div>
                 </div>
             </div>
         );

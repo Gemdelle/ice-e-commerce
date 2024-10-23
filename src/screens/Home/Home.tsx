@@ -152,7 +152,7 @@ const Home: FC<HomeProps> = ({ param1 }) => {
                     <div id="inicio" className="nav-bar-container">
                         <a href={"#inicio"} className="nav-item">Inicio</a>
                         <a href={`#shop-section`} className="nav-item">Tienda</a>
-                        <a href={"#inicio"} className="nav-item">Nosotros</a>
+                        <a href={"#inicio"} className="nav-item">Talles</a>
                         <a href={'#contact-us-section'} className="nav-item">Contacto</a>
                     </div>
                     <TopSellers products={mockedProducts}/>
