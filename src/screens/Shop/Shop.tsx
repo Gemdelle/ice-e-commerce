@@ -1,7 +1,7 @@
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import './Shop.css';
 import Sparkles from "../../components/Sparkles/Sparkles";
-import {FaWhatsapp} from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import Modal from "../../components/Modal/Modal";
 
 interface ProductsProps {
@@ -40,9 +40,9 @@ interface GloveProduct {
 
 type Product = TightProduct | GloveProduct;
 
-const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
+const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
     const [products, setProducts] = useState<Product[]>([]);
-    const [productDescription, setProductDescription ] = useState<Product | null>(null);
+    const [productDescription, setProductDescription] = useState<Product | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -107,16 +107,24 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
         return (
             <div key={product.model + index} className="product-item">
                 <div className={'product-price'}>${product.price}</div>
-                <img className={product.type === "TIGHT"? "tight" : "glove"} src={product.previewUrl} alt={product.model}/>
+                <img className={product.type === "TIGHT" ? "tight" : "glove"} src={product.previewUrl} alt={product.model} />
                 <div className='bottom-product-item'>
                     <div className="product-pattern-name">{product.pattern}</div>
                     <div className='add-to-cart' onClick={() => openDescriptionModal(product)}>Ver más</div>
                 </div>
                 <div className="colors-container">
-                    <div className="color red" onClick={()=> changeColor(index)}></div>
-                    <div className="color blue" onClick={()=> changeColor(index)}></div>
-                    <div className="color green" onClick={()=> changeColor(index)}></div>
-                    <div className="color purple" onClick={()=> changeColor(index)}></div>
+                    <div className="color-frame" onClick={() => changeColor(index)}>
+                        <div className="color red"></div>
+                    </div>
+                    <div className="color-frame" onClick={() => changeColor(index)}>
+                        <div className="color blue"></div>
+                    </div>
+                    <div className="color-frame" onClick={() => changeColor(index)}>
+                        <div className="color green"></div>
+                    </div>
+                    <div className="color-frame" onClick={() => changeColor(index)}>
+                        <div className="color purple"></div>
+                    </div>
                 </div>
             </div>
         );
@@ -127,7 +135,7 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
             <div className="shop-title">Tienda</div>
             <div className="lace-shop"></div>
             <div className="main-tienda"></div>
-            {products.length > 0 ? <Sparkles snowflakeCount={10}/> : null}
+            {products.length > 0 ? <Sparkles snowflakeCount={10} /> : null}
             <div className="products-container">
                 {products.map((product: Product, index: number) => renderProduct(product, index))}
             </div>
@@ -136,8 +144,8 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
                 <div className="contact-title">Contacto</div>
                 <div className="whassap-container">
                     <a href={`https://wa.me/541141414912`} target="_blank" rel="noopener noreferrer"
-                       style={styles.container}>
-                        <FaWhatsapp size={24} style={styles.icon}/>
+                        style={styles.container}>
+                        <FaWhatsapp size={24} style={styles.icon} />
                         <span style={styles.number}>+54 11 4141 4912</span>
                     </a>
                 </div>
@@ -147,9 +155,9 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
                     <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
                         <div className="modal-content description">
                             <div className='description-img-container'>
-                                <img src={productDescription.previewUrl} alt={productDescription.model}/>
+                                <img src={productDescription.previewUrl} alt={productDescription.model} />
                             </div>
-                            <div className='description-container'>
+                            {/* <div className='description-container'>
                                 <div>{productDescription.type}</div>
                                 <div className='inline-model'>
                                     <div>{productDescription.id}</div>
@@ -184,6 +192,14 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
                                              onClick={() => handleAddToCart(productDescription.id)}>Agregar al Carrito
                                         </div>
                                     </div>
+                                </div>
+                            </div> */}
+                            <div className='description-container'>
+                                <div>{productDescription.type}</div>
+                                <div className='inline-model'>
+                                    <div>{productDescription.id}</div>
+                                    <div>{productDescription.model}</div>
+                                    <div>{productDescription.pattern}</div>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +209,7 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
                     <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
                         <div className="modal-content description">
                             <div className='description-img-container'>
-                                <img src={productDescription.previewUrl} alt={productDescription.model}/>
+                                <img src={productDescription.previewUrl} alt={productDescription.model} />
                             </div>
                             <div className='description-container'>
                                 <div>{productDescription.type}</div>
@@ -202,7 +218,10 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
                                     <div>{productDescription.model}</div>
                                     <div>{productDescription.pattern}</div>
                                 </div>
-                                <div>Cantidad de Strass: {productDescription.strass_quantity}</div>
+                                <div className='elements-container'>
+                                    <div className='elements'></div>
+                                </div>
+                                {/* <div>Cantidad de Strass: {productDescription.strass_quantity}</div>
                                 <div>Stock: {productDescription.stock}</div>
 
                                 <div className='colour-section'>
@@ -227,10 +246,10 @@ const Shop: FC<ProductsProps> = React.memo(({saveProducts, addToCart}) => {
                                     <div className='buy-section'>
                                         <div>${(productDescription.price * quantity).toFixed(2)}</div>
                                         <div className='buy-btn'
-                                             onClick={() => handleAddToCart(productDescription.id)}>Agregar al Carrito
+                                            onClick={() => handleAddToCart(productDescription.id)}>Agregar al Carrito
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="modal-close-btn description-close-button" onClick={closeModal}>Close</div>
