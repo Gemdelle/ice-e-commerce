@@ -43,7 +43,7 @@
 
 .shop-background {
     width: 100vw;
-    height: 600vh;
+    height: 678vh;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -151,14 +151,23 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 96vh;
+    width: 100vh;
     position: absolute;
     bottom: 61vh;
 }
 
-.como-comprar-tooltips {
+.como-comprar-tooltips-respuestas {
     font-family: 'Moderne Fraktur';
-    font-size: 2vh;
+    font-size: 3.5vh;
+    color: #e3e6d9;
+    text-align: left;
+    margin-bottom: 2vh;
+}
+
+.como-comprar-tooltips-preguntas {
+    font-family: 'Moderne Fraktur';
+    font-size: 4vh;
+    text-shadow: 2px 2px 4px rgb(130 157 175);
     color: #e3e6d9;
 }
 

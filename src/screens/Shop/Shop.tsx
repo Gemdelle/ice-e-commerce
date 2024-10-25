@@ -212,18 +212,18 @@ const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
             </div>
             {error && <div className="error-message">{error}</div>}
             <div id="compra" className="como-comprar-container">
-                <div className="como-comprar-tooltips">¿Cómo compro?</div>
-                <div className="como-comprar-tooltips">&nbsp;Escribinos por whatsapp con el nombre / ID del producto que querés junto con sus especificaciones (por ejemplo, medias Gradient o guantes Marquise con gema de cristal en rosa)</div>
-                <div className="como-comprar-tooltips">¿Cómo pago?</div>
-                <div className="como-comprar-tooltips">&nbsp;Mediante transferencia por Mercado Pago. Una vez solicitado el pedido vía whatsapp, te enviamos la cuenta para realizar la transferencia.</div>
-                <div className="como-comprar-tooltips">¿Cómo se realiza la entrega?</div>
-                <div className="como-comprar-tooltips">&nbsp;Por el momento no contamos con delivery, los productos se entregan en mano los días sábados en la pista de hielo Margal o días a convenir en Fantasy Skate.</div>
-                <div className="como-comprar-tooltips">¿Cuánto tardo en recibir el pedido?</div>
-                <div className="como-comprar-tooltips">&nbsp;Una vez realizado el pedido, dentro de los 2 días estará listo para la entrega; el día de la entrega dependerá del día en el que se haya realizado el pedido, según el lugar de entrega al que se asista de manera más próxima.</div>
-                <div className="como-comprar-tooltips">¿Los productos tienen garantía?</div>
-                <div className="como-comprar-tooltips">&nbsp;Te regalamos un service que podés utilizar hasta los 6 meses de haber comprado el producto en el caso de que se despegue algún cristal.</div>
-                <div className="como-comprar-tooltips">¿Puedo cambiar un producto?</div>
-                <div className="como-comprar-tooltips">&nbsp;Sí, en el caso de haber comprado un par de medias y el talle no te sea cómodo, podés solicitar un cambio por otro talle, siempre y cuando sea del mismo producto. Los guantes no tienen cambio ya que son talle ÚNICO.</div>
+                <div className="como-comprar-tooltips-preguntas">¿Cómo compro?</div>
+                <div className="como-comprar-tooltips-respuestas">&nbsp;Escribinos por whatsapp con el nombre / ID del producto que querés junto con sus especificaciones (por ejemplo, medias Gradient o guantes Marquise con gema de cristal en rosa)</div>
+                <div className="como-comprar-tooltips-preguntas">¿Cómo pago?</div>
+                <div className="como-comprar-tooltips-respuestas">&nbsp;Mediante transferencia por Mercado Pago. Una vez solicitado el pedido vía whatsapp, te enviamos la cuenta para realizar la transferencia.</div>
+                <div className="como-comprar-tooltips-preguntas">¿Cómo se realiza la entrega?</div>
+                <div className="como-comprar-tooltips-respuestas">&nbsp;Por el momento no contamos con delivery, los productos se entregan en mano los días sábados en la pista de hielo Margal o días a convenir en Fantasy Skate.</div>
+                <div className="como-comprar-tooltips-preguntas">¿Cuánto tardo en recibir el pedido?</div>
+                <div className="como-comprar-tooltips-respuestas">&nbsp;Una vez realizado el pedido, dentro de los 2 días estará listo para la entrega; el día de la entrega dependerá del día en el que se haya realizado el pedido, según el lugar de entrega al que se asista de manera más próxima.</div>
+                <div className="como-comprar-tooltips-preguntas">¿Los productos tienen garantía?</div>
+                <div className="como-comprar-tooltips-respuestas">&nbsp;Te regalamos un service que podés utilizar hasta los 6 meses de haber comprado el producto en el caso de que se despegue algún cristal.</div>
+                <div className="como-comprar-tooltips-preguntas">¿Puedo cambiar un producto?</div>
+                <div className="como-comprar-tooltips-respuestas">&nbsp;Sí, en el caso de haber comprado un par de medias y el talle no te sea cómodo, podés solicitar un cambio por otro talle, siempre y cuando sea del mismo producto. Los guantes no tienen cambio ya que son talle ÚNICO.</div>
             </div>
             <div id="contact-us-section" className='contact-section'>
                 <div className="contact-title">Contacto</div>
