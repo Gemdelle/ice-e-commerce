@@ -204,6 +204,7 @@ const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
                 <div className="shop-tooltips">*Ante la duda, comprar el talle más grande</div>
                 <div className="shop-tooltips">*Lavar a mano para evitar posibles deterioros</div>
                 <div className="shop-tooltips">*Estamos trabajando para conseguir una mayor variedad de talles</div>
+                <div className="shop-gift">Te regalamos un service de strass gratuito hasta los 6 meses realizada tu compra</div>
             </div>
             {products.length > 0 ? <Sparkles snowflakeCount={10} /> : null}
             <div className="products-container">
@@ -233,6 +234,7 @@ const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
                     </a>
                 </div>
             </div>
+            <div className="footer" />
             {productDescription && (
                 <Modal isOpen={isDescriptionModalOpen} onClose={closeModal}>
                     <div className="modal-content description">

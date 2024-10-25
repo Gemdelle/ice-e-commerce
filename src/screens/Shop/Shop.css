@@ -35,6 +35,7 @@
 .main-tienda {
     background-image: url(/public/assets/sizes.png);
     background-size: contain;
+    background-repeat: no-repeat;
     margin-top: 46vh;
     width: 50vw;
     height: 75vh;
@@ -42,7 +43,7 @@
 
 .shop-background {
     width: 100vw;
-    height: 555vh;
+    height: 600vh;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -50,6 +51,17 @@
     justify-content: flex-start;
     align-items: center;
     background-color: #667274;
+}
+
+.footer{
+    background-image: url(/public/assets/footer.png);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 25vh;
+    position: absolute;
+    bottom: 0;
 }
 
 .product-item {
@@ -126,6 +138,14 @@ body {
     color: #e3e6d9;
 }
 
+.shop-gift {
+    font-family: 'Moderne Fraktur';
+    font-weight: bold;
+    font-size: 4vh;
+    color: #e3e6d9;
+    margin-top: 4vh;
+}
+
 .como-comprar-container {
     display: flex;
     flex-direction: column;
@@ -133,7 +153,7 @@ body {
     align-items: flex-start;
     width: 96vh;
     position: absolute;
-    bottom: 26vh;
+    bottom: 61vh;
 }
 
 .como-comprar-tooltips {
@@ -184,7 +204,7 @@ body {
 
 .contact-section {
     position: absolute;
-    bottom: 4vh;
+    bottom: 30vh;
     right: 41%;
     height: 20vh;
     display: flex;
