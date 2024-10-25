@@ -5,6 +5,20 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Cinzel-Bold';
+    src: url('/public/fonts/Cinzel-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cinzel-Regular';
+    src: url('/public/fonts/Cinzel-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .lace-shop{
     background-image: url(/public/assets/lace-shop.png);
     background-position: center;
@@ -161,16 +175,21 @@ body{
     height: 90%;
 }
 
+.modal-content img.pattern-image {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20vh;
+    height: 41vh;
+}
+
 .elements-container {
-    height: 80%;
+    height: 69%;
     width: 100%;
-    background-color: white;
+    margin-top: 4vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .modal-content.description {
@@ -180,7 +199,6 @@ body{
     align-content: center;
     height: 70%;
     width: 80%;
-    background-color: blue;
 }
 
 .description-img-container {
@@ -199,6 +217,9 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 3vh;
+    background-color: #b2c1c1;
+    border: 1.4vh double #e3e3d2;
+    border-radius: 1vh;
 }
 
 .description-title {
@@ -209,13 +230,13 @@ body{
 }
 
 .description-close-button{
-    font-family: 'Moderne Fraktur';
-    font-size: 3.5vh;
-    color: #4f6765;
+    font-family: 'Moderne Fraktur', sans-serif;
+    font-size: 3vh;
+    color: #e3e3d2;
     cursor: pointer;
     position: absolute;
-    top: 21vh;
-    right: 13vh;
+    top: 13vh;
+    right: 12vh;
 }
 
 .colors-container{
@@ -271,4 +292,28 @@ body{
     font-family: 'Edwardian Script ITC', sans-serif;
     font-size: 4.7vh;
     color: #43443e;
+}
+
+.product-id-pattern-description{
+    font-family: 'Cinzel-Bold', sans-serif;
+    font-size: 4.5vh;
+    text-shadow: 1px 1px 2px black, 0 0 1em grey, 0 0 0.2em grey;
+    color: #7f8f8d;
+}
+
+.product-model-description{
+    font-family: 'Edwardian Script ITC', sans-serif;
+    font-size: 9vh;
+    text-transform: lowercase;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    bottom: -1vh;
+    right: 10vh;
+}
+
+.inline-model {
+    position: relative;
+    height: 14vh;
 }
