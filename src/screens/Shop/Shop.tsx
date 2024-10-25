@@ -193,11 +193,9 @@ const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
                             <img src={productDescription.currentPreviewUrl} alt={productDescription.model} />
                         </div>
                         <div className='description-container'>
-                            <div>{productDescription.type}</div>
                             <div className='inline-model'>
-                                <div>{productDescription.id}</div>
-                                <div>{productDescription.model}</div>
-                                <div>{productDescription.pattern}</div>
+                                <div className="product-id-pattern-description">#G{productDescription.id} {productDescription.pattern}</div>
+                                <div className="product-model-description">{productDescription.model}</div>
                             </div>
                             {productDescription.patternElements.length > 0 && (
                                 <div className='elements-container'>
