@@ -53,9 +53,9 @@
 
 
 .cards {
+    height: 400px;
     position: relative;
     width: 750px;
-    height: 300px;
 }
 
 .card {
