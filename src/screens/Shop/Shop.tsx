@@ -230,7 +230,7 @@ const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
                 <div className="whassap-container">
                     <a href={`https://wa.me/541141414912`} target="_blank" rel="noopener noreferrer" style={styles.container}>
                         <FaWhatsapp size={24} style={styles.icon} />
-                        <span style={{ fontSize: '4vh', fontFamily: 'Moderne Fraktur' }}>+54 11 4141 4912</span>
+                        <span style={{ color:'#667274', fontSize: '4vh', fontFamily: 'Moderne Fraktur' }}>+54 11 4141 4912</span>
                     </a>
                 </div>
             </div>
