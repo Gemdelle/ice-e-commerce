@@ -172,17 +172,11 @@ body {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content img {
-    width: 90%;
-    height: 90%;
-}
-
 .modal-content img.pattern-image {
-    background-position: center;
-    background-size: contain;
     background-repeat: no-repeat;
-    width: 20vh;
-    height: 41vh;
+    background-size: contain;
+    height: 45vh;
+    margin-bottom: 1.5vh;
 }
 
 .elements-container {
