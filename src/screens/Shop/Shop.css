@@ -19,6 +19,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Edwardian Script ITC';
+    src: url('/public/fonts/Edwardian.TTF') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+
 .lace-shop {
     background-image: url(/public/assets/lace-shop.png);
     background-position: center;
@@ -85,7 +92,7 @@
 
 .product-item img.glove {
     height: 50%;
-    width: 60%;
+    width: 70%;
     margin-top: 4vh;
 }
 

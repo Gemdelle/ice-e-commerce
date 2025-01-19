@@ -59,6 +59,21 @@ const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
     const [currentPatternElement, setCurrentPatternElement] = useState<string | null>(null);
     const [patternInterval, setPatternInterval] = useState<number | null>(null);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const updateIsMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        updateIsMobile();
+        window.addEventListener("resize", updateIsMobile);
+
+        return () => {
+            window.removeEventListener("resize", updateIsMobile);
+        };
+    }, []);
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -206,7 +221,7 @@ const Shop: FC<ProductsProps> = React.memo(({ saveProducts, addToCart }) => {
                 <div className="shop-tooltips">*Estamos trabajando para conseguir una mayor variedad de talles</div>
                 <div className="shop-gift">Te regalamos un service de strass gratuito hasta los 6 meses realizada tu compra</div>
             </div>
-            {products.length > 0 ? <Sparkles snowflakeCount={10} /> : null}
+            {products.length > 0 && !isMobile ? <Sparkles snowflakeCount={10} /> : null}
             <div className="products-container">
                 {products.map((product: ProductItem, index: number) => renderProduct(product, index))}
             </div>

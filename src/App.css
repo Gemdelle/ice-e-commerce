@@ -1,3 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Evita el scroll horizontal */
+  width: 100%; /* Garantiza que no se desborde */
+  box-sizing: border-box; /* Incluye bordes y padding en el cálculo del ancho */
+}
+/* LINEA DE DEBUGGING PARA VER LIMITES DE LOS COMPONENTES
+* {
+  outline: 1px solid red; 
+} */
 .App {
   text-align: center;
 }
